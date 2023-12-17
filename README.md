@@ -1,18 +1,12 @@
 # donggukthon_2023_4_B
 
----
-
 2023 Donggukthon 4팀 백엔드 레포지토리입니다.
 
 # GitHub Role
 
----
-
 해당 Repository는 다음과 같은 Convention을 따릅니다.
 
 ## Commit Convention
-
----
 
 | 커밋 유형 | 설명 |
 | --- | --- |
@@ -31,8 +25,6 @@
 | !HOTFIX | 급하게 치명적인 버그를 고쳐야 하는 경우 |
 
 ## PR Convention
-
----
 
 | 아이콘 | 코드 | 설명 |
 | --- | --- | --- |
