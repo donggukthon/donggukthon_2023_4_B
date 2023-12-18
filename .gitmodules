@@ -1,0 +1,4 @@
+[submodule "volunmate_properties"]
+	path = volunmate_properties
+	url = https://github.com/kurtyoon/volunmate_properties.git
+	branch = main
