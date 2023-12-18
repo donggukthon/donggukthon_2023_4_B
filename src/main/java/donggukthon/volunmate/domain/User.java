@@ -3,16 +3,19 @@ package donggukthon.volunmate.domain;
 import donggukthon.volunmate.type.ELoginProvider;
 import donggukthon.volunmate.type.EUserType;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
 public class User {
     @Id
@@ -51,6 +54,22 @@ public class User {
 
     @Column(name = "degree")
     private Float degree;
+
+    // ============================= One To Many Relationship =============================
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Volunteer> volunteers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Volunmate> volunmates = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Heart> hearts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Help> helps = new ArrayList<>();
+
+    // ====================================== Builder ======================================
 
     @Builder
     public User(String socialId, String password, EUserType userType, ELoginProvider provider) {

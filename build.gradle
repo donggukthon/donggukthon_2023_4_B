@@ -50,6 +50,14 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 }
 
+task copyGitSubmodule(type: Copy) {
+	copy {
+		from './volunmate_properties'
+		include '*.yml'
+		into './src/main/resources'
+	}
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
