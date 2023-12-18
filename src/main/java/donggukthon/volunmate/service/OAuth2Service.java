@@ -33,9 +33,9 @@ public class OAuth2Service {
     private final JwtUtil jwtUtil;
     private final JwtProvider jwtProvider;
     private final GoogleOAuth2Util oAuth2Util;
-    @Value("${security.oauth2.main-url}")
+    @Value("${security.oauth2.main_url}")
     private String MAIN_URL;
-    @Value("${security.oauth2.signup-url}")
+    @Value("${security.oauth2.signup_url}")
     private String SIGNUP_URL;
 
     public String getRedirectUrl(ELoginProvider provider) {
