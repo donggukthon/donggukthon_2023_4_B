@@ -1,7 +1,7 @@
 package donggukthon.volunmate.config;
 
-import donggukthon.volunmate.interceptor.SocialIdArgumentResolver;
-import donggukthon.volunmate.interceptor.SocialIdInterceptor;
+import donggukthon.volunmate.interceptor.pre.SocialIdArgumentResolver;
+import donggukthon.volunmate.interceptor.pre.SocialIdInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
