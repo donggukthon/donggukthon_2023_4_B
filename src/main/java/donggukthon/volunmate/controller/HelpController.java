@@ -12,8 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/help")
@@ -56,11 +54,18 @@ public class HelpController {
         return ResponseDto.ok(helpService.helpUpdate(socialId, createHelpDto, imageFile, helpId));
     }
 
+    @Operation(summary = "도움 요청글 상태 변경", description = "도움 요청글 상태를 변경합니다.")
+    @PatchMapping("/{helpId}/status")
+    public ResponseDto<Boolean> helpStatusUpdate(@SocialId String socialId,
+                                                 @RequestParam("status") boolean status,
+                                                 @PathVariable Long helpId) {
+        return ResponseDto.ok(helpService.helpStatusUpdate(socialId, status, helpId));
+    }
+
     @Operation(summary = "도움 요청 삭제", description = "도움 요청을 삭제합니다.")
     @DeleteMapping("/{helpId}")
     public ResponseDto<Boolean> helpDelete(@SocialId String socialId,
                                            @PathVariable Long helpId){
         return ResponseDto.ok(helpService.helpDelete(socialId, helpId));
     }
-
 }

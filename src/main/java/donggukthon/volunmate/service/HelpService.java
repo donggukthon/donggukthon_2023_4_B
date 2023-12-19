@@ -49,9 +49,9 @@ public class HelpService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HELP));
 
         return ResponseHelpDetailDto.of(
-                help.getEmergency(),help.getImageUrl(),help.getTitle(), help.getContent(), help.getLatitude(),
-                help.getLongitude(),help.getUser().getUserName(),help.getUser().getDegree(),
-                help.getUser().getKakaoId(),help.getCreatedAt().toString());
+                help.getEmergency(), help.getImageUrl(), help.getTitle(), help.getContent(), help.getLatitude(),
+                help.getLongitude(), help.getUser().getUserName(), help.getUser().getDegree(),
+                help.getUser().getKakaoId(), help.getCreatedAt().toString());
     }
 
     public HelpListDto getHelpList(String socialId){
@@ -104,19 +104,35 @@ public class HelpService {
         return Boolean.TRUE;
     }
 
+    public Boolean helpStatusUpdate(String socialId, boolean status, Long helpId) {
+        User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Help help = helpRepository.findById(helpId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HELP));
+
+        if (user != help.getUser()) {
+            throw new CustomException(ErrorCode.BAD_REQUEST_ERROR);
+        }
+
+        help.updateStatus(status);
+        user.updateDegree(user.getDegree() + 0.3f);
+
+        return Boolean.TRUE;
+    }
+
     public Boolean helpUpdate(String socialId, CreateHelpDto createHelpDto,
                                    MultipartFile imageFile,Long helpId){
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         Help help = helpRepository.findById(helpId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_HELP));
 
-        if(user != help.getUser()){
+        if (user != help.getUser()) {
             throw new CustomException(ErrorCode.BAD_REQUEST_ERROR);
         }
         String imageUrl = s3Util.updateImage(imageFile, help.getImageUrl());
 
-        help.update(createHelpDto.title(),createHelpDto.content(),imageUrl,
+        help.update(createHelpDto.title(), createHelpDto.content(), imageUrl,
                 createHelpDto.latitude(), createHelpDto.longitude(), createHelpDto.isEmergency());
 
         return Boolean.TRUE;
