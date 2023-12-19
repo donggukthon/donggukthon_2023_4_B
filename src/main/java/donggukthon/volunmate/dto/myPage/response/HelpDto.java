@@ -13,11 +13,11 @@ public record HelpDto(
         @JsonProperty("title")
         String title,
 
-        @JsonProperty("lattitude")
-        Float lattitude,
+        @JsonProperty("latitude")
+        Double latitude,
 
         @JsonProperty("longitude")
-        Float longitude,
+        Double longitude,
 
         @JsonProperty("image_url")
         String imageUrl,
@@ -29,13 +29,13 @@ public record HelpDto(
         String createdAt
 ) implements Serializable {
     public static HelpDto of(
-            Long helpId, String title, Float lattitude, Float longitude,
+            Long helpId, String title, Double latitude, Double longitude,
             String imageUrl, Boolean emergency, String createdAt
     ) {
         return HelpDto.builder()
                 .helpId(helpId)
                 .title(title)
-                .lattitude(lattitude)
+                .latitude(latitude)
                 .longitude(longitude)
                 .imageUrl(imageUrl)
                 .emergency(emergency)

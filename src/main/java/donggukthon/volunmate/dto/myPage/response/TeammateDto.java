@@ -13,14 +13,17 @@ public record TeammateDto(
         @JsonProperty("title")
         String title,
 
-        @JsonProperty("date")
-        String date,
+        @JsonProperty("start_date")
+        String startDate,
 
-        @JsonProperty("lattitude")
-        Float lattitude,
+        @JsonProperty("end_date")
+        String endDate,
+
+        @JsonProperty("latitude")
+        Double latitude,
 
         @JsonProperty("longitude")
-        Float longitude,
+        Double longitude,
 
         @JsonProperty("image_url")
         String ImageUrl,
@@ -35,15 +38,16 @@ public record TeammateDto(
         String createdAt
 ) implements Serializable {
     public static TeammateDto of(
-            Long teamId, String title, String date, Float lattitude,
-            Float longitude, String ImageUrl, Integer volunCount,
+            Long teamId, String title, String startDate, String endDate,
+            Double latitude, Double longitude, String ImageUrl, Integer volunCount,
             Integer curCount, String createdAt
     ) {
         return TeammateDto.builder()
                 .teamId(teamId)
                 .title(title)
-                .date(date)
-                .lattitude(lattitude)
+                .startDate(startDate)
+                .endDate(endDate)
+                .latitude(latitude)
                 .longitude(longitude)
                 .ImageUrl(ImageUrl)
                 .volunCount(volunCount)

@@ -20,11 +20,17 @@ public record UserInfoDto (
         Integer help,
 
         @JsonProperty("heart")
-        Integer heart
+        Integer heart,
+
+        @JsonProperty("latitude")
+        Double latitude,
+
+        @JsonProperty("longitude")
+        Double longitude
 ) implements Serializable {
     public static UserInfoDto of(
             String name, Float degree, Integer mate,
-            Integer help, Integer heart
+            Integer help, Integer heart, Double latitude, Double longitude
     ) {
         return UserInfoDto.builder()
                 .name(name)
@@ -32,6 +38,8 @@ public record UserInfoDto (
                 .mate(mate)
                 .help(help)
                 .heart(heart)
+                .latitude(latitude)
+                .longitude(longitude)
                 .build();
     }
 }

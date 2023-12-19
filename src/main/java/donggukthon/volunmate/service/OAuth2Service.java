@@ -96,7 +96,7 @@ public class OAuth2Service {
     public Boolean enroll(String socialId, AuthSignupDto authSignupDto) {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
-        user.userSignUp(authSignupDto.name(), authSignupDto.kakaoId());
+        user.userSignUp(authSignupDto.name(), authSignupDto.kakaoId(), authSignupDto.myLatitude(), authSignupDto.myLongitude());
         return true;
     }
 
