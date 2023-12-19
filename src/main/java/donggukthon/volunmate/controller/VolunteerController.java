@@ -26,7 +26,7 @@ public class VolunteerController {
     @Operation(summary = "봉사활동 생성", description = "봉사활동 정보와 이미지를 통해 봉사활동을 생성힙니다.")
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseDto<Boolean> createVolunteer(@SocialId String socialId,
-                                                @RequestPart("image") MultipartFile image,
+                                                @Nullable @RequestPart("image") MultipartFile image,
                                                 @RequestPart("data") CreateVolunteerDto createVolunteerDto) {
         return ResponseDto.ok(volunteerService.createVolunteer(socialId, createVolunteerDto, image));
     }
