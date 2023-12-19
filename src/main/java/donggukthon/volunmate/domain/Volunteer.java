@@ -1,6 +1,5 @@
 package donggukthon.volunmate.domain;
 
-import donggukthon.volunmate.dto.CreateVolunteerDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -37,8 +36,8 @@ public class Volunteer {
     @Column(name = "cur_count")
     private Integer curCount;
 
-    @Column(name = "lattitude")
-    private Double lattitude;
+    @Column(name = "latitude")
+    private Double latitude;
 
     @Column(name = "longitude")
     private Double longitude;
@@ -67,14 +66,14 @@ public class Volunteer {
     private List<Tag> tags = new ArrayList<>();
 
     @Builder
-    public Volunteer(String title, String content, String imageUrl, Double lattitude, Double longitude,List<Tag> tags,
+    public Volunteer(String title, String content, String imageUrl, Double latitude, Double longitude,List<Tag> tags,
                      Integer volunCount, LocalDateTime startDate, LocalDateTime endDate,LocalDateTime dueDate, User user) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
         this.volunCounet = volunCount;
         this.curCount = 0;
-        this.lattitude = lattitude;
+        this.latitude = latitude;
         this.longitude = longitude;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -89,20 +88,20 @@ public class Volunteer {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void update (String title, String content, String imageUrl, Double lattitude, Double longitude,
-    Integer volunCount, LocalDateTime startDate, LocalDateTime endDate,LocalDateTime dueDate) {
+    public void update (String title, String content, String imageUrl, Double latitude, Double longitude,
+                        Integer volunCount, LocalDateTime startDate, LocalDateTime endDate,LocalDateTime dueDate) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
         this.volunCounet = volunCount;
-        this.lattitude = lattitude;
+        this.latitude = latitude;
         this.longitude = longitude;
         this.startDate = startDate;
         this.endDate = endDate;
         this.dueDate = dueDate;
     }
 
-    public void updateCurCount(){
+    public void updateCurCount() {
         this.curCount++;
     }
 }
