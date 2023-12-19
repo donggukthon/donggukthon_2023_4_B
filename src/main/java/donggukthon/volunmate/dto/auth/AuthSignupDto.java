@@ -7,6 +7,13 @@ public record AuthSignupDto (
         String name,
 
         @JsonProperty("kakao_id")
-        String kakaoId
+        String kakaoId,
+
+        @JsonProperty("my_latitude")
+        Double myLatitude,
+
+        @JsonProperty("my_longitude")
+        Double myLongitude
+
 ) {
 }
