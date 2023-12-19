@@ -2,6 +2,7 @@ package donggukthon.volunmate.repository;
 
 import donggukthon.volunmate.domain.User;
 import donggukthon.volunmate.domain.Volunteer;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +26,6 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
             "    (v.latitude - :latitude) * (v.latitude - :latitude) + " +
             "    (v.longitude - :longitude) * (v.longitude - :longitude)" +
             ")")
-    List<Volunteer> getVolunteers(@Param("latitude") Double latitude, @Param("longitude") Double longitude);
+    List<Volunteer> getVolunteers(@Param("latitude") Double latitude, @Param("longitude") Double longitude,
+                                  @Param("now")LocalDateTime now);
 }

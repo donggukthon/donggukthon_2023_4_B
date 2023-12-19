@@ -2,11 +2,13 @@ package donggukthon.volunmate.repository;
 
 import donggukthon.volunmate.domain.Help;
 import donggukthon.volunmate.domain.User;
+import donggukthon.volunmate.domain.Volunteer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -16,4 +18,19 @@ public interface HelpRepository extends JpaRepository<Help, Long> {
 
     @Query("select h from Help h where h.user = :user")
     List<Help> findByUser(User user);
+
+    @Query("SELECT h FROM Help h " +
+            "ORDER BY SQRT(" +
+            "    (h.latitude - :latitude) * (h.latitude - :latitude) + " +
+            "    (h.longitude - :longitude) * (h.longitude - :longitude)" +
+            ")")
+    List<Help> getHelpList(@Param("latitude") Double latitude, @Param("longitude") Double longitude);
+
+    @Query("SELECT h FROM Help h " +
+            "WHERE h.emergency = true "+
+            "ORDER BY SQRT(" +
+            "    (h.latitude - :latitude) * (h.latitude - :latitude) + " +
+            "    (h.longitude - :longitude) * (h.longitude - :longitude)" +
+            ")")
+    List<Help> getEmergencyHelpList(@Param("latitude") Double latitude, @Param("longitude") Double longitude);
 }

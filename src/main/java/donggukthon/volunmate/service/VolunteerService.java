@@ -143,7 +143,8 @@ public class VolunteerService {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
 
-        List<Volunteer> volunteerList = volunteerRepository.getVolunteers(user.getLatitude(), user.getLongitude());
+        List<Volunteer> volunteerList = volunteerRepository.getVolunteers(user.getLatitude(), user.getLongitude(),
+                                                                            LocalDateTime.now());
 
         List<ResponseVolunteerDto> responseVolunteerDtoList = volunteerList.stream()
                 .map(volunteer ->
