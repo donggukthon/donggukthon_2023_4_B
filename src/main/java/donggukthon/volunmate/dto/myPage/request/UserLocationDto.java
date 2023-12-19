@@ -1,19 +1,12 @@
-package donggukthon.volunmate.dto.auth;
+package donggukthon.volunmate.dto.myPage.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record AuthSignupDto (
-        @JsonProperty("name")
-        String name,
-
-        @JsonProperty("kakao_id")
-        String kakaoId,
-
+public record UserLocationDto(
         @JsonProperty("my_latitude")
         Double myLatitude,
 
         @JsonProperty("my_longitude")
         Double myLongitude
-
 ) {
 }

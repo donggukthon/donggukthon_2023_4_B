@@ -51,7 +51,7 @@ public class VolunteerService {
                 .tags(tagList)
                 .content(createVolunteerDto.content())
                 .volunCount(createVolunteerDto.person())
-                .lattitude(createVolunteerDto.latitude())
+                .latitude(createVolunteerDto.latitude())
                 .longitude(createVolunteerDto.longitude())
                 .startDate(createVolunteerDto.startDate())
                 .endDate(createVolunteerDto.endDate())
@@ -132,7 +132,7 @@ public class VolunteerService {
                 volunteer.getEndDate(),
                 volunteer.getDueDate(),
                 volunteer.getVolunCounet(),
-                volunteer.getLattitude(),
+                volunteer.getLatitude(),
                 volunteer.getLongitude(),
                 volunteer.getUser().getUserName(),
                 volunteer.getUser().getDegree(),
@@ -143,7 +143,7 @@ public class VolunteerService {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
 
-        List<Volunteer> volunteerList = volunteerRepository.getVolunteers(user.getLattitude(), user.getLongitude(), LocalDateTime.now());
+        List<Volunteer> volunteerList = volunteerRepository.getVolunteers(user.getLatitude(), user.getLongitude());
 
         List<ResponseVolunteerDto> responseVolunteerDtoList = volunteerList.stream()
                 .map(volunteer ->
@@ -158,7 +158,7 @@ public class VolunteerService {
                                         .collect(Collectors.toList()),
                         volunteer.getVolunCounet(),
                         volunteer.getCurCount(),
-                        volunteer.getLattitude(),
+                        volunteer.getLatitude(),
                         volunteer.getLongitude(),
                         volunteer.getCreatedAt(),
                         volunteer.getHearts().stream().map(Heart::getUser).anyMatch(u->u.equals(user))
