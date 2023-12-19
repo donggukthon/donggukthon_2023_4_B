@@ -2,6 +2,7 @@ package donggukthon.volunmate.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,4 +48,29 @@ public class Help {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
+
+    @Builder
+    public Help(String title, String content, String imageUrl, Double latitude, Double longitude,
+                Boolean emergency, User user) {
+        this.title = title;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.emergency = emergency;
+        this.status = false;
+        this.createdAt = LocalDateTime.now();
+        this.user = user;
+    }
+
+    public void update(String title, String content, String imageUrl, Double latitude, Double longitude,
+                       Boolean emergency) {
+        this.title = title;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.emergency = emergency;
+    }
+
 }
