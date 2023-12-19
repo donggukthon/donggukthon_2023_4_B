@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/help")
 @Tag(name = "Help", description = "도와주세요 요청 관련 API입니다.")
 public class HelpController {
+
     private final HelpService helpService;
 
     @Operation(summary = "도움 요청 생성", description = "도움 요청을 생성합니다.")

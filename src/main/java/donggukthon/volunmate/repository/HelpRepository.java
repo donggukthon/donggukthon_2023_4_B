@@ -20,17 +20,15 @@ public interface HelpRepository extends JpaRepository<Help, Long> {
     List<Help> findByUser(User user);
 
     @Query("SELECT h FROM Help h " +
-            "ORDER BY SQRT(" +
-            "    (h.latitude - :latitude) * (h.latitude - :latitude) + " +
-            "    (h.longitude - :longitude) * (h.longitude - :longitude)" +
+            "ORDER BY ST_Distance_Sphere(" +
+            "POINT(h.longitude,h.latitude),POINT(:longitude,:latitude)"+
             ")")
     List<Help> getHelpList(@Param("latitude") Double latitude, @Param("longitude") Double longitude);
 
     @Query("SELECT h FROM Help h " +
             "WHERE h.emergency = true "+
-            "ORDER BY SQRT(" +
-            "    (h.latitude - :latitude) * (h.latitude - :latitude) + " +
-            "    (h.longitude - :longitude) * (h.longitude - :longitude)" +
+            "ORDER BY ST_Distance_Sphere(" +
+            "POINT(h.longitude,h.latitude),POINT(:longitude,:latitude)"+
             ")")
     List<Help> getEmergencyHelpList(@Param("latitude") Double latitude, @Param("longitude") Double longitude);
 }
