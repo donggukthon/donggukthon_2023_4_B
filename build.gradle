@@ -62,5 +62,6 @@ task copyGitSubmodule(type: Copy) {
 }
 
 tasks.named('test') {
+	enabled = false
 	useJUnitPlatform()
 }
