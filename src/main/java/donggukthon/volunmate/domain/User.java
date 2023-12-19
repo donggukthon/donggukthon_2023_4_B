@@ -55,6 +55,12 @@ public class User {
     @Column(name = "degree")
     private Float degree;
 
+    @Column(name = "lattitude")
+    private Double lattitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     // ============================= One To Many Relationship =============================
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -72,7 +78,8 @@ public class User {
     // ====================================== Builder ======================================
 
     @Builder
-    public User(String socialId, String password, EUserType userType, ELoginProvider provider) {
+    public User(String socialId, String password, EUserType userType, ELoginProvider provider
+                ,double lattitude, double longitude) {
         this.socialId = socialId;
         this.password = password;
         this.userType = userType;
@@ -81,6 +88,8 @@ public class User {
         this.refreshToken = null;
         this.isLogin = false;
         this.degree = 36.5f;
+        this.lattitude = lattitude;
+        this.longitude = longitude;
     }
 
     public void updateRefreshToken(String refreshToken) {
