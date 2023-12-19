@@ -31,7 +31,7 @@ public class Volunteer {
     private String imageUrl;
 
     @Column(name = "volun_count")
-    private Integer volunCounet;
+    private Integer volunCount;
 
     @Column(name = "cur_count")
     private Integer curCount;
@@ -56,13 +56,13 @@ public class Volunteer {
 
     // ============================= One To Many Relationship =============================
 
-    @OneToMany(mappedBy = "volunteer")
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
     private List<Volunmate> volunmates = new ArrayList<>();
 
-    @OneToMany(mappedBy = "volunteer")
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
     private List<Heart> hearts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "volunteer")
+    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
     private List<Tag> tags = new ArrayList<>();
 
     @Builder
@@ -71,7 +71,7 @@ public class Volunteer {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
-        this.volunCounet = volunCount;
+        this.volunCount = volunCount;
         this.curCount = 0;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -93,7 +93,7 @@ public class Volunteer {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
-        this.volunCounet = volunCount;
+        this.volunCount = volunCount;
         this.latitude = latitude;
         this.longitude = longitude;
         this.startDate = startDate;

@@ -9,6 +9,7 @@ import donggukthon.volunmate.repository.*;
 import donggukthon.volunmate.type.EStatusType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,17 +24,16 @@ public class MyPageService {
     private final HeartRepository heartRepository;
     public UserInfoDto getUserInfo(String socialId) {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
-
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         return UserInfoDto.of(user.getUserName(), user.getDegree(), volunmateRepository.countByUser(user),
                 helpRepository.countByUser(user), heartRepository.countByUser(user),
                 user.getLatitude(), user.getLongitude());
     }
 
+    @Transactional
     public boolean updateUserLocation(String socialId, UserLocationDto userLocationDto) {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
-
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         return user.updateUserLocation(userLocationDto.myLatitude(), userLocationDto.myLongitude());
     }
 
@@ -63,7 +63,7 @@ public class MyPageService {
             throw new CustomException(ErrorCode.VOLUNMATE_STATUS_NOT_READY);
         }
 
-        if (Objects.equals(volunmate.getVolunteer().getCurCount(), volunmate.getVolunteer().getVolunCounet())) {
+        if (Objects.equals(volunmate.getVolunteer().getCurCount(), volunmate.getVolunteer().getVolunCount())) {
             throw new CustomException(ErrorCode.FULL_VOLUNTEER_ERROR);
         }
 
@@ -99,7 +99,7 @@ public class MyPageService {
                 .map(volunteer -> TeammateDto.of(
                         volunteer.getId(), volunteer.getTitle(), volunteer.getStartDate().toString(),
                         volunteer.getEndDate().toString(), volunteer.getLatitude(), volunteer.getLongitude(),
-                        volunteer.getImageUrl(), volunteer.getVolunCounet(), volunteer.getCurCount(),
+                        volunteer.getImageUrl(), volunteer.getVolunCount(), volunteer.getCurCount(),
                         volunteer.getCreatedAt().toString()
                 )).toList();
 
@@ -127,7 +127,7 @@ public class MyPageService {
                         heart.getVolunteer().getId(), heart.getVolunteer().getTitle(),
                         heart.getVolunteer().getStartDate().toString(), heart.getVolunteer().getEndDate().toString(),
                         heart.getVolunteer().getLatitude(), heart.getVolunteer().getLongitude(),
-                        heart.getVolunteer().getImageUrl(), heart.getVolunteer().getVolunCounet(),
+                        heart.getVolunteer().getImageUrl(), heart.getVolunteer().getVolunCount(),
                         heart.getVolunteer().getCurCount(), heart.getVolunteer().getCreatedAt().toString()
                 )).toList();
 

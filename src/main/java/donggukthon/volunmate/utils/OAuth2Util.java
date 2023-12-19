@@ -12,7 +12,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 @Component
 @RequiredArgsConstructor
-public class GoogleOAuth2Util {
+public class OAuth2Util {
     @Value("${security.oauth2.google.authentication_url}")
     private String GOOGLE_AUTHENTICATION_URL;
     @Value("${security.oauth2.google.token_url}")
