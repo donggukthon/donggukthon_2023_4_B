@@ -50,4 +50,10 @@ public class Volunmate {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
+
+    public boolean updateStatus(EStatusType status) {
+        this.volunteer.updateCurCount();
+        this.status = status;
+        return true;
+    }
 }
