@@ -104,9 +104,11 @@ public class User {
         this.longitude = longitude;
     }
 
-    public boolean updateUserLocation(Double latitude, Double longitude) {
+    public boolean updateUserLocation(String userName, String kakaoId, Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.userName = userName;
+        this.kakaoId = kakaoId;
         return true;
     }
 

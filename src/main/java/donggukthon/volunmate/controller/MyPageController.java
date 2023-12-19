@@ -23,7 +23,7 @@ public class MyPageController {
         return ResponseDto.ok(myPageService.getUserInfo(socialId));
     }
 
-    @Operation(summary = "유저 위치 수정", description = "유저 위치를 수정합니다. 현재 위치를 기반으로 합니다.")
+    @Operation(summary = "유저 정보 수정", description = "유저 정보를 수정합니다. 현재 위치를 기반으로 합니다.")
     @PatchMapping
     public ResponseDto<?> updateUserLocation(@SocialId String socialId,
                                              @RequestBody UserLocationDto userLocationDto) {
