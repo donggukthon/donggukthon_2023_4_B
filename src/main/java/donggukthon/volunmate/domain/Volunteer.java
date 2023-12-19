@@ -1,7 +1,9 @@
 package donggukthon.volunmate.domain;
 
+import donggukthon.volunmate.dto.CreateVolunteerDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.util.ArrayList;
@@ -36,10 +38,10 @@ public class Volunteer {
     private Integer curCount;
 
     @Column(name = "lattitude")
-    private Float lattitude;
+    private Double lattitude;
 
     @Column(name = "longitude")
-    private Float longitude;
+    private Double longitude;
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -64,9 +66,43 @@ public class Volunteer {
     @OneToMany(mappedBy = "volunteer")
     private List<Tag> tags = new ArrayList<>();
 
-    // ============================= Many To One Relationship =============================
+    @Builder
+    public Volunteer(String title, String content, String imageUrl, Double lattitude, Double longitude,List<Tag> tags,
+                     Integer volunCount, LocalDateTime startDate, LocalDateTime endDate,LocalDateTime dueDate, User user) {
+        this.title = title;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.volunCounet = volunCount;
+        this.curCount = 0;
+        this.lattitude = lattitude;
+        this.longitude = longitude;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.dueDate = dueDate;
+        this.user = user;
+        this.tags = tags;
+        this.createdAt = LocalDateTime.now();
+    }
+// ============================= Many To One Relationship =============================
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void update (String title, String content, String imageUrl, Double lattitude, Double longitude,
+    Integer volunCount, LocalDateTime startDate, LocalDateTime endDate,LocalDateTime dueDate) {
+        this.title = title;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.volunCounet = volunCount;
+        this.lattitude = lattitude;
+        this.longitude = longitude;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.dueDate = dueDate;
+    }
+
+    public void updateCurCount(){
+        this.curCount++;
+    }
 }
