@@ -34,7 +34,8 @@ public class MyPageService {
     public boolean updateUserLocation(String socialId, UserLocationDto userLocationDto) {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
-        return user.updateUserLocation(userLocationDto.myLatitude(), userLocationDto.myLongitude());
+        return user.updateUserLocation(userLocationDto.name(), userLocationDto.kakaoId(),
+                userLocationDto.myLatitude(), userLocationDto.myLongitude());
     }
 
     public UserTeamListDto getUserTeamList(String socialId) {
@@ -49,6 +50,7 @@ public class MyPageService {
         return UserTeamListDto.of(userTeamDto);
     }
 
+    @Transactional
     public boolean patchUserTeam(String socialId, Long teamId, boolean isAccept) {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
