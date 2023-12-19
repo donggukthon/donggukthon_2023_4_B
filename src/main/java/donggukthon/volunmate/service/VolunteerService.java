@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -142,7 +143,7 @@ public class VolunteerService {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
 
-        List<Volunteer> volunteerList = volunteerRepository.getVolunteers(user.getLattitude(), user.getLongitude());
+        List<Volunteer> volunteerList = volunteerRepository.getVolunteers(user.getLattitude(), user.getLongitude(), LocalDateTime.now());
 
         List<ResponseVolunteerDto> responseVolunteerDtoList = volunteerList.stream()
                 .map(volunteer ->
