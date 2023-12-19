@@ -1,4 +1,4 @@
-package donggukthon.volunmate.interceptor;
+package donggukthon.volunmate.interceptor.pre;
 
 import donggukthon.volunmate.annotation.SocialId;
 import donggukthon.volunmate.constant.Constants;

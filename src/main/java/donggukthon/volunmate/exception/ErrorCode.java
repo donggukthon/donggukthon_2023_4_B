@@ -30,6 +30,8 @@ public enum ErrorCode {
      * 404 Not Found
      */
     NOT_FOUND_ERROR(404, HttpStatus.NOT_FOUND, "요청하신 리소스를 찾을 수 없습니다."),
+    FILE_NOT_FOUND(404, HttpStatus.NOT_FOUND, "요청하신 파일을 찾을 수 없습니다."),
+    FILE_UPLOAD_ERROR(404, HttpStatus.NOT_FOUND, "파일 업로드에 실패하였습니다."),
 
     /**
      * 405 Method Not Allowed
