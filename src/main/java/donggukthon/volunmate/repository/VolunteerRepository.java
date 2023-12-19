@@ -19,9 +19,8 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
 
     @Query("SELECT v FROM Volunteer v " +
             "WHERE v.curCount < v.volunCount AND v.dueDate > :now " +
-            "ORDER BY SQRT(" +
-            "    (v.latitude - :latitude) * (v.latitude - :latitude) + " +
-            "    (v.longitude - :longitude) * (v.longitude - :longitude)" +
+            "ORDER BY ST_Distance_Sphere(" +
+            "POINT(v.longitude,v.latitude),POINT(:longitude,:latitude)"+
             ")")
     List<Volunteer> getVolunteers(@Param("latitude") Double latitude, @Param("longitude") Double longitude,
                                   @Param("now")LocalDateTime now);
