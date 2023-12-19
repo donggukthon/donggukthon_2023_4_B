@@ -1,4 +1,4 @@
-package donggukthon.volunmate.dto;
+package donggukthon.volunmate.dto.help;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -17,13 +17,12 @@ public record ResponseHelpDetailDto(
         @JsonProperty("name") String name,
         @JsonProperty("degree") Float degree,
         @JsonProperty("kakao_id") String kakaoId,
-
-        @JsonProperty("created_at") LocalDateTime createdAt
+        @JsonProperty("created_at") String createdAt
 ) implements Serializable {
 
     public static ResponseHelpDetailDto of(
             Boolean isEmergency,String imageUrl,String title, String content, Double latitude, Double longitude,
-            String name, Float degree,String kakaoId, LocalDateTime createdAt
+            String name, Float degree,String kakaoId, String createdAt
     ) {
         return ResponseHelpDetailDto.builder()
                 .isEmergency(isEmergency)

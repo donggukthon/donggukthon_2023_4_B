@@ -17,11 +17,8 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
     @Query("select v from Volunteer v where v.user = :user")
     List<Volunteer> findByUser(User user);
 
-    @Query("select v from Volunteer v join v.volunmates vm where vm.id = :volunmateId")
-    Optional<Volunteer> findByVolunmateId(Long volunmateId);
-
     @Query("SELECT v FROM Volunteer v " +
-            "WHERE v.curCount < v.volunCounet AND v.dueDate > :now " +
+            "WHERE v.curCount < v.volunCount AND v.dueDate > :now " +
             "ORDER BY SQRT(" +
             "    (v.latitude - :latitude) * (v.latitude - :latitude) + " +
             "    (v.longitude - :longitude) * (v.longitude - :longitude)" +

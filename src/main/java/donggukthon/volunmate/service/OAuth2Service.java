@@ -11,7 +11,7 @@ import donggukthon.volunmate.security.jwt.JwtProvider;
 import donggukthon.volunmate.type.ELoginProvider;
 import donggukthon.volunmate.type.EUserType;
 import donggukthon.volunmate.utils.CookieUtil;
-import donggukthon.volunmate.utils.GoogleOAuth2Util;
+import donggukthon.volunmate.utils.OAuth2Util;
 import donggukthon.volunmate.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class OAuth2Service {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final JwtProvider jwtProvider;
-    private final GoogleOAuth2Util oAuth2Util;
+    private final OAuth2Util oAuth2Util;
     @Value("${security.oauth2.main_url}")
     private String MAIN_URL;
     @Value("${security.oauth2.signup_url}")

@@ -8,10 +8,13 @@ import donggukthon.volunmate.exception.CustomException;
 import donggukthon.volunmate.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -20,15 +23,23 @@ public class S3Util {
     private final AmazonS3Client amazonS3Client;
     private final S3Config s3Config;
 
-    public String upload(File file, String fileName, String dirName) {
+    public String upload(MultipartFile file) {
+        if (file == null) {
+            return null;
+        }
+        String fileName = makeFileName();
         try {
-            String fullPath = dirName + fileName;
-            amazonS3Client.putObject(new PutObjectRequest(s3Config.getBucket(), fullPath, file));
-
-            return amazonS3Client.getUrl(s3Config.getBucket(), fullPath).toString();
-        } catch (AmazonS3Exception e) {
+            amazonS3Client.putObject(new PutObjectRequest(s3Config.getBucket(), fileName, file.getInputStream(), null));
+            return amazonS3Client.getUrl(s3Config.getBucket(), fileName).toString();
+        } catch (IOException e) {
             throw new CustomException(ErrorCode.FILE_UPLOAD_ERROR);
         }
+
+    }
+
+    public String updateImage(MultipartFile file, String path) {
+        deleteS3File(path);
+        return upload(file);
     }
 
     /**
@@ -52,7 +63,7 @@ public class S3Util {
         }
     }
 
-    private String makeFileName(String originFileName) {
-        return originFileName + "~" + UUID.randomUUID() + ".jpg";
+    private String makeFileName() {
+        return LocalDateTime.now().toString() + UUID.randomUUID() + ".jpg";
     }
 }

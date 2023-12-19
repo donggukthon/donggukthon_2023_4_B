@@ -37,6 +37,10 @@ public class Volunmate {
     @JoinColumn(name = "volun_id")
     Volunteer volunteer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    User user;
+
     @Builder
     public Volunmate(String username, String phoneNumber, String content, EStatusType status, Volunteer volunteer, User user) {
         this.username = username;
@@ -46,10 +50,6 @@ public class Volunmate {
         this.volunteer = volunteer;
         this.user = user;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    User user;
 
     public boolean updateStatus(EStatusType status) {
         this.volunteer.updateCurCount();
