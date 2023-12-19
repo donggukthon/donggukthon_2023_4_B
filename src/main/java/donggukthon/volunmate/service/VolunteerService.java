@@ -61,6 +61,7 @@ public class VolunteerService {
                             .volunteer(volunteer)
                     .build());
         }
+        user.updateDegree(user.getDegree() + 0.2f);
         volunteerRepository.saveAndFlush(volunteer);
         tagRepository.saveAllAndFlush(tagList);
 
@@ -76,6 +77,7 @@ public class VolunteerService {
         if(user == volunteer.getUser()){
             throw new CustomException(ErrorCode.CANNOT_SIGNUP_MY_VOLUNTEER);
         }
+        user.updateDegree(user.getDegree() + 0.1f);
 
         volunmateRepository.save(
                 Volunmate.builder()
