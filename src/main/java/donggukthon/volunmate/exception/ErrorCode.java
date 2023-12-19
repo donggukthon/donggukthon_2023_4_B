@@ -14,6 +14,7 @@ public enum ErrorCode {
     BAD_REQUEST_ERROR(400, HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
     INVALID_ARGUMENT(400, HttpStatus.BAD_REQUEST, "요청에 유효하지 않은 인자입니다."),
     FULL_VOLUNTEER_ERROR(400, HttpStatus.BAD_REQUEST, "모집 인원이 가득 찼습니다."),
+    CANNOT_SIGNUP_MY_VOLUNTEER(400, HttpStatus.BAD_REQUEST, "자신이 생성한 봉사활동에는 참여할 수 없습니다."),
 
     /**
      * 401 Unauthorized
@@ -33,10 +34,12 @@ public enum ErrorCode {
      * 404 Not Found
      */
     NOT_FOUND_ERROR(404, HttpStatus.NOT_FOUND, "요청하신 리소스를 찾을 수 없습니다."),
+    NOT_FOUND_USER(404, HttpStatus.NOT_FOUND, "해당하는 유저가 존재하지 않습니다."),
     FILE_NOT_FOUND(404, HttpStatus.NOT_FOUND, "요청하신 파일을 찾을 수 없습니다."),
     FILE_UPLOAD_ERROR(404, HttpStatus.NOT_FOUND, "파일 업로드에 실패하였습니다."),
     VOLUNMATE_NOT_FOUND(404, HttpStatus.NOT_FOUND, "해당하는 봉사 참여가 존재하지 않습니다."),
     VOLUNTEER_NOT_FOUND(404, HttpStatus.NOT_FOUND, "해당하는 봉사가 존재하지 않습니다."),
+    NOT_FOUND_HELP(404, HttpStatus.NOT_FOUND, "해당하는 도움이 존재하지 않습니다."),
 
     /**
      * 405 Method Not Allowed
