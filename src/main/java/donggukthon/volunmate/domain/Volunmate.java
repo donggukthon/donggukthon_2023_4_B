@@ -3,6 +3,7 @@ package donggukthon.volunmate.domain;
 import donggukthon.volunmate.type.EStatusType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Volunmate {
     @Id
     @Column(name = "volunmate_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
@@ -35,7 +37,23 @@ public class Volunmate {
     @JoinColumn(name = "volun_id")
     Volunteer volunteer;
 
+    @Builder
+    public Volunmate(String username, String phoneNumber, String content, EStatusType status, Volunteer volunteer, User user) {
+        this.username = username;
+        this.phoneNumber = phoneNumber;
+        this.content = content;
+        this.status = status;
+        this.volunteer = volunteer;
+        this.user = user;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
+
+    public boolean updateStatus(EStatusType status) {
+        this.volunteer.updateCurCount();
+        this.status = status;
+        return true;
+    }
 }

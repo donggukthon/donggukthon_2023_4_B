@@ -8,7 +8,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +54,12 @@ public class User {
     @Column(name = "degree")
     private Float degree;
 
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     // ============================= One To Many Relationship =============================
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -72,7 +77,8 @@ public class User {
     // ====================================== Builder ======================================
 
     @Builder
-    public User(String socialId, String password, EUserType userType, ELoginProvider provider) {
+    public User(String socialId, String password, EUserType userType, ELoginProvider provider,
+                double latitude, double longitude) {
         this.socialId = socialId;
         this.password = password;
         this.userType = userType;
@@ -81,6 +87,8 @@ public class User {
         this.refreshToken = null;
         this.isLogin = false;
         this.degree = 36.5f;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public void updateRefreshToken(String refreshToken) {
@@ -88,10 +96,18 @@ public class User {
         this.refreshToken = refreshToken;
     }
 
-    public void userSignUp(String userName, String kakaoId) {
+    public void userSignUp(String userName, String kakaoId, Double latitude, Double longitude) {
         this.userName = userName;
         this.kakaoId = kakaoId;
         this.userType = EUserType.USER;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public boolean updateUserLocation(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        return true;
     }
 
     public void updateDegree(Float degree) {

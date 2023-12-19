@@ -27,11 +27,11 @@ public class Help {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "lattiude")
-    private Float lattitude;
+    @Column(name = "latitude")
+    private Double latitude;
 
     @Column(name = "longitude")
-    private Float longitude;
+    private Double longitude;
 
     @Column(name = "emergency")
     private Boolean emergency;
