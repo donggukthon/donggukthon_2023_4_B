@@ -73,4 +73,9 @@ public class Help {
         this.emergency = emergency;
     }
 
+    public void updateStatus(Boolean status) {
+        this.status = status;
+        this.title = "[모집 완료] " + this.title;
+    }
+
 }
