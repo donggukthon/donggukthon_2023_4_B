@@ -13,15 +13,19 @@ public record UserTeamDto(
         @JsonProperty("writer")
         String writer,
 
+        @JsonProperty("degree")
+        Float degree,
+
         @JsonProperty("content")
         String content
 ) implements Serializable {
     public static UserTeamDto of(
-            Long teamId, String writer, String content
+            Long teamId, String writer, Float degree, String content
     ) {
         return UserTeamDto.builder()
                 .teamId(teamId)
                 .writer(writer)
+                .degree(degree)
                 .content(content)
                 .build();
     }

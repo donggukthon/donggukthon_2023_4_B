@@ -47,7 +47,7 @@ public class MyPageService {
                     String title = volunteer.getTitle();
                     List<UserTeamDto> userTeamDto = volunteer.getVolunmates().stream()
                             .map(volunmate -> UserTeamDto.of(
-                                    volunmate.getId(), volunmate.getUser().getUserName(), volunmate.getContent()
+                                    volunmate.getId(), volunmate.getUser().getUserName(), volunmate.getUser().getDegree(), volunmate.getContent()
                             )).toList();
                     return UserTeamListDto.of(title, userTeamDto);
                 }).toList();
