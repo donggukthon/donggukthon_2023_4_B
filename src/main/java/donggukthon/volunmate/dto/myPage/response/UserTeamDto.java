@@ -10,9 +10,6 @@ public record UserTeamDto(
         @JsonProperty("team_id")
         Long teamId,
 
-        @JsonProperty("title")
-        String title,
-
         @JsonProperty("writer")
         String writer,
 
@@ -20,11 +17,10 @@ public record UserTeamDto(
         String content
 ) implements Serializable {
     public static UserTeamDto of(
-            Long teamId, String title, String writer, String content
+            Long teamId, String writer, String content
     ) {
         return UserTeamDto.builder()
                 .teamId(teamId)
-                .title(title)
                 .writer(writer)
                 .content(content)
                 .build();

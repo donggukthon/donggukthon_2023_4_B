@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/me")
 @RequiredArgsConstructor
@@ -32,7 +34,7 @@ public class MyPageController {
 
     @Operation(summary = "유저 팀 리스트 조회", description = "유저 팀 리스트를 조회합니다.")
     @GetMapping("/team")
-    public ResponseDto<UserTeamListDto> getUserTeamList(@SocialId String socialId) {
+    public ResponseDto<List<UserTeamListDto>> getUserTeamList(@SocialId String socialId) {
         return ResponseDto.ok(myPageService.getUserTeamList(socialId));
     }
 

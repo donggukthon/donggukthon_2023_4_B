@@ -38,16 +38,19 @@ public class MyPageService {
                 userLocationDto.myLatitude(), userLocationDto.myLongitude());
     }
 
-    public UserTeamListDto getUserTeamList(String socialId) {
+    public List<UserTeamListDto> getUserTeamList(String socialId) {
         User user = userRepository.findBySocialIdAndIsLogin(socialId, true)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ERROR));
         List<Volunteer> volunteers = volunteerRepository.findByUser(user);
-        List<UserTeamDto> userTeamDto = volunmateRepository.findByVolunteersIn(volunteers).stream()
-                .filter(volunmate -> volunmate.getStatus() == EStatusType.READY)
-                .map(volunmate -> UserTeamDto.of(
-                        volunmate.getId(), volunmate.getVolunteer().getTitle(), volunmate.getUser().getUserName(), volunmate.getContent()
-                )).toList();
-        return UserTeamListDto.of(userTeamDto);
+        return volunteers.stream()
+                .map(volunteer -> {
+                    String title = volunteer.getTitle();
+                    List<UserTeamDto> userTeamDto = volunteer.getVolunmates().stream()
+                            .map(volunmate -> UserTeamDto.of(
+                                    volunmate.getId(), volunmate.getUser().getUserName(), volunmate.getContent()
+                            )).toList();
+                    return UserTeamListDto.of(title, userTeamDto);
+                }).toList();
     }
 
     @Transactional

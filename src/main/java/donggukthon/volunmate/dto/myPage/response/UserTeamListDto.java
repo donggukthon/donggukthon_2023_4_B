@@ -8,11 +8,14 @@ import java.util.List;
 
 @Builder
 public record UserTeamListDto (
+        @JsonProperty("title")
+        String title,
         @JsonProperty("res")
         List<UserTeamDto> res
 ) implements Serializable {
-    public static UserTeamListDto of(List<UserTeamDto> res) {
+    public static UserTeamListDto of(String title, List<UserTeamDto> res) {
         return UserTeamListDto.builder()
+                .title(title)
                 .res(res)
                 .build();
     }
